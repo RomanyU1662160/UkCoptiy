@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\User;
+use App\Models\Member;
 use App\Models\Church;
 
 use Illuminate\Database\Eloquent\Model;
@@ -14,9 +15,9 @@ class Family extends Model
         'id', 'name','church_id'
     ];
 
-    public function Users()
+    public function members()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(Member::class);
     }
 public function church()
 {

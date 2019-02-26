@@ -3,19 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Family;
+use App\Models\Member;
 use App\Models\Church;
 
-class ChurchControll extends Controller
+class FamilyController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index( Church $church)
+    public function index()
     {
-        return view('churches.church_dashboard',compact('church'));
+        //
     }
 
     /**
@@ -84,11 +86,21 @@ class ChurchControll extends Controller
         //
     }
 
-    //list all families belongs to this church
-public function getFamilies(Church $church){
+    public function getMembers(Family $family){
+ $members =$family->members()->get();
+ return view('members.templates.member_template', compact('members','family'));
 
-    $families = $church->families()->get();
-
-    return view('churches.families', compact('families'));
     }
+    public function AddFamilyMember(Family $family, Request $request){
+$family->members()->create([
+'title'=>$request->input('title'),
+'fname'=>$request->input('fname'),
+'lname'=>$request->input('lname'),
+'dob'=>$request->input('dob')
+]);
+$members = $family->members()->get();
+//return response()->view('members.templates.member_template', compact('members','family'));
+return redirect()->back()->with(['members'=>$members,'family'=>$family]);
+}
+
 }

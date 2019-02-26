@@ -3,19 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Church;
 
-class ChurchControll extends Controller
+class MemberController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index( Church $church)
+    public function index()
     {
-        return view('churches.church_dashboard',compact('church'));
+        //
     }
 
     /**
@@ -82,13 +80,5 @@ class ChurchControll extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    //list all families belongs to this church
-public function getFamilies(Church $church){
-
-    $families = $church->families()->get();
-
-    return view('churches.families', compact('families'));
     }
 }
