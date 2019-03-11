@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Parish;
 
-class ParishController extends Controller
+class Priestcontroller extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +13,7 @@ class ParishController extends Controller
      */
     public function index()
     {
-        $parishes = Parish::all()->searchable();;
-        return view('parishes.index', compact(['parishes']));
+        //
     }
 
     /**
@@ -45,21 +43,10 @@ class ParishController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Parish $parish)
+    public function show($id)
     {
-        $regions = $parish->regions()->get();
-       // dd($regions);
-        return view('parishes.regions', compact(['regions', 'parish']));
+        //
     }
-
-
-    public function getChurches(Parish $parish)
-    {
-        $churches = $parish->churches()->Paginate(6);
-       // dd($churches);
-        return view('parishes.churches', compact(['churches', 'parish']));
-    }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -94,5 +81,4 @@ class ParishController extends Controller
     {
         //
     }
-   
 }

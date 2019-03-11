@@ -6,9 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Parish;
 use App\Models\Region;
 use App\Models\Family;
+use App\Models\Priest;
+use Laravel\Scout\Searchable;
 
 class Church extends Model
 {
+    use Searchable;
     protected $fillable = [
         'id', 'name', 'postcode', 'address1', 'address2', 'email', 'phone'
     ];
@@ -18,6 +21,7 @@ class Church extends Model
         return $this->belongsTo(Parish::class);
     }
 
+
     public function Region()
     {
         return $this->belongsTo(Region::class);
@@ -26,5 +30,16 @@ class Church extends Model
     {
         return $this->hasMany(Family::class);
     }
+    public function priests()
+    {
+        return $this->hasMany(Priest::class);
+    }
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
 
+        // Customize array...
+
+        return $array;
+    }
 }

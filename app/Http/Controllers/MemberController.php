@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Parish;
+use App\Models\Member;
 
-class ParishController extends Controller
+class MemberController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,7 @@ class ParishController extends Controller
      */
     public function index()
     {
-        $parishes = Parish::all()->searchable();;
-        return view('parishes.index', compact(['parishes']));
+        //
     }
 
     /**
@@ -45,21 +44,10 @@ class ParishController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Parish $parish)
+    public function show($id)
     {
-        $regions = $parish->regions()->get();
-       // dd($regions);
-        return view('parishes.regions', compact(['regions', 'parish']));
+        //
     }
-
-
-    public function getChurches(Parish $parish)
-    {
-        $churches = $parish->churches()->Paginate(6);
-       // dd($churches);
-        return view('parishes.churches', compact(['churches', 'parish']));
-    }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -67,9 +55,9 @@ class ParishController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Member $member)
     {
-        //
+       return view('members.update',compact('member'));
     }
 
     /**
@@ -79,9 +67,20 @@ class ParishController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Member $member)
     {
-        //
+$member->update([
+'fname'=>$request->input('fname'),
+'lname'=>$request->input('lname'),
+'dob'=>$request->input('dob'),
+'email'=>$request->input('email'),
+'mobile'=>$request->input('mobile'),
+'house'=>$request->input('house'),
+'adress'=>$request->input('adress'),
+'postcode'=>$request->input('postcode'),
+
+]);
+return redirect()->back()->with('success','Details updated successfully ');
     }
 
     /**
@@ -94,5 +93,4 @@ class ParishController extends Controller
     {
         //
     }
-   
 }

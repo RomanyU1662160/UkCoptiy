@@ -6,9 +6,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\models\Region;
 use App\models\Church;
+use Laravel\Scout\Searchable;
 
 class Parish extends Model
 {
+    use Searchable;
+
     protected $fillable = ['id', 'name', 'bishop', 'avatar'];
 
     public function regions()
@@ -20,6 +23,13 @@ class Parish extends Model
     {
         return $this->hasMany(Church::class);
     }
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
 
+        // Customize array...
+
+        return $array;
+    }
 
 }

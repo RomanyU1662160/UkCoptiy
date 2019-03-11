@@ -3,19 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Parish;
+use App\Models\User;
+use App\Models\Family;
+use App\Models\Member;
+use App\Models\Church;
 
-class ParishController extends Controller
+class FamilyController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Family $family)
     {
-        $parishes = Parish::all()->searchable();;
-        return view('parishes.index', compact(['parishes']));
+       return view('families.family_dashboard',compact('family'));
     }
 
     /**
@@ -25,7 +27,7 @@ class ParishController extends Controller
      */
     public function create()
     {
-        //
+       //return view('families.create');
     }
 
     /**
@@ -45,21 +47,10 @@ class ParishController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Parish $parish)
+    public function show(Family $family)
     {
-        $regions = $parish->regions()->get();
-       // dd($regions);
-        return view('parishes.regions', compact(['regions', 'parish']));
+       return view('families.family_details',compact('family'));
     }
-
-
-    public function getChurches(Parish $parish)
-    {
-        $churches = $parish->churches()->Paginate(6);
-       // dd($churches);
-        return view('parishes.churches', compact(['churches', 'parish']));
-    }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -94,5 +85,24 @@ class ParishController extends Controller
     {
         //
     }
-   
+
+    public function getMembers(Family $family){
+ $members =$family->members()->get();
+ return view('members.templates.member_template', compact('members','family'));
+
+    }
+    public function AddFamilyMember(Family $family, Request $request){
+$family->members()->create([
+'title'=>$request->input('title'),
+'fname'=>$request->input('fname'),
+'lname'=>$request->input('lname'),
+'dob'=>$request->input('dob')
+]);
+$members = $family->members()->get();
+//return response()->view('members.templates.member_template', compact('members','family'));
+return redirect()->back()->with(['members'=>$members,'family'=>$family]);
+}
+
+
+
 }
