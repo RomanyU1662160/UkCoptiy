@@ -22,4 +22,16 @@ class Member extends Model
     public function user(){
         return $this->hasOne(User::class);
     }
+    // public function Contactdetails(){
+    //     $contactDetails = '';
+    //     if ($this->email && $this->mobile) {
+    //         $contactDetails = " Email: ".$this->email.  " mobile: " .$this->mobile ;
+    //     }elseif( $this->email && !$this->mobile ){
+    //         $contactDetails = $this->email;
+    //     }elseif( !$this->email && $this->mobile ){
+    //         $contactDetails = $this->mobile;
+    //     }
+
+    //     return $contactDetails;
+    // }
 }

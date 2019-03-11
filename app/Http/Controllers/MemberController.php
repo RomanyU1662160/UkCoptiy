@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Member;
 
 class MemberController extends Controller
 {
@@ -54,9 +55,9 @@ class MemberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Member $member)
     {
-        //
+       return view('members.update',compact('member'));
     }
 
     /**
@@ -66,9 +67,20 @@ class MemberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Member $member)
     {
-        //
+$member->update([
+'fname'=>$request->input('fname'),
+'lname'=>$request->input('lname'),
+'dob'=>$request->input('dob'),
+'email'=>$request->input('email'),
+'mobile'=>$request->input('mobile'),
+'house'=>$request->input('house'),
+'adress'=>$request->input('adress'),
+'postcode'=>$request->input('postcode'),
+
+]);
+return redirect()->back()->with('success','Details updated successfully ');
     }
 
     /**

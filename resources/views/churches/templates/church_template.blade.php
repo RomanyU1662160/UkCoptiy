@@ -9,4 +9,5 @@
     <a href="{{route('church.families',$church)}}" class="btn btn-info float-left">View families ❯ </a>
 
     </div>
+
 </div>

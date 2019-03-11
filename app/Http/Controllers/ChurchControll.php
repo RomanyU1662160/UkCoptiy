@@ -13,9 +13,11 @@ class ChurchControll extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index( Church $church)
+    public function index()
     {
-        return view('churches.church_dashboard',compact('church'));
+         $churches = Church::all()->searchable();;
+         $x =1;
+         return view('churches.index',compact('churches','x'));
     }
 
     /**
@@ -45,9 +47,9 @@ class ChurchControll extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Church $church)
     {
-        //
+        return view('churches.church_dashboard',compact('church'));
     }
 
     /**
@@ -85,10 +87,28 @@ class ChurchControll extends Controller
     }
 
     //list all families belongs to this church
-public function getFamilies(Church $church){
+        public function getFamilies(Church $church){
 
-    $families = $church->families()->get();
+            $families = $church->families()->get();
 
-    return view('churches.families', compact('families'));
+            return view('churches.families', compact(['families','church']));
+            }
+
+        public function getCreateNewFamily(Church $church){
+            return view('churches.church_addFamily',compact('church'));
+        }
+
+    public function createNewFamily(Church $church,Request $request){
+        $familyName = $request->input('husband'). ' + '.$request->input('wife');
+           $family = $church->families()->create([
+            'name'=>$familyName,
+            ]);
+            //return view('families.family_dashboard',compact(['family','church','success'=>'Family created, Select add memder to start add members to this family.']));
+            return redirect()->route('family.dashboard',$family)->with('success','Family created, Select add memder to start add members to this family.');
+
+    }
+    public function search(Request $request){
+      $churches =   Church::search($request->search)->get();
+        return view('churches.search.results',compact('churches'));
     }
 }

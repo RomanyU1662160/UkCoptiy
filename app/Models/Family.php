@@ -21,6 +21,6 @@ class Family extends Model
     }
 public function church()
 {
-    return $this->belongsTo(Church);
+    return $this->belongsTo(Church::class);
 }
 }

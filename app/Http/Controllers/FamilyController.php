@@ -15,9 +15,9 @@ class FamilyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Family $family)
     {
-        //
+       return view('families.family_dashboard',compact('family'));
     }
 
     /**
@@ -27,7 +27,7 @@ class FamilyController extends Controller
      */
     public function create()
     {
-        //
+       //return view('families.create');
     }
 
     /**
@@ -47,9 +47,9 @@ class FamilyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Family $family)
     {
-        //
+       return view('families.family_details',compact('family'));
     }
 
     /**
@@ -102,5 +102,7 @@ $members = $family->members()->get();
 //return response()->view('members.templates.member_template', compact('members','family'));
 return redirect()->back()->with(['members'=>$members,'family'=>$family]);
 }
+
+
 
 }

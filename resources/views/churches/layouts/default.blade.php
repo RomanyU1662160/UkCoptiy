@@ -1,22 +1,17 @@
 @extends('layouts.app')
-@section('title', 'church dashboard')
+@section('title', 'Church| dashboard')
+
+@section('styles')
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+@endsection
+
+
 @section('content')
 <div class="alert">
 <h3 class="text-info text-center">{{$church->name}}</h3>
 </div>
 <div class="row">
-<div class="col-md-3">
-    <div class="nav flex-column nav-pills border">
-        <a href=" #" class="nav-link btn btn-outline-info "> Church details</a>
-        <a href=" #" class="nav-link btn btn-outline-info mt-2 "> contact Priest</a>
-        <a href=" #" class="nav-link btn btn-outline-info mt-2"> More Information</a>
-
-        </div>
-        <div class="nav flex-column nav-pills border mt-3">
-        <a href=" #" class="nav-link btn btn-outline-info "> Add a new Family</a>
-        <a href=" #" class="nav-link btn btn-outline-info mt-2 "> Join Church </a>
-        <a href=" #" class="nav-link btn btn-outline-info mt-2"> Add a member </a>
-    </div>
+@include('churches.layouts.sideNav')
 </div>
 <div class="col-md-8">
     @yield('church.content')
@@ -25,3 +20,8 @@
 </div>
 
 @endsection
+
+@section('scripts')
+    @yield('church.scripts')
+@endsection
+

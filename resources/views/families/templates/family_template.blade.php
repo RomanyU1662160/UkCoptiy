@@ -1,7 +1,7 @@
 
 <div class="card text-center">
 <div class="card-header bg-secondary">
-<h5 class="text-warning"><a href="{{route('family.members',$family)}}" class="text-warning"> {{$family->name}}</a></h5>
+<h5 class="text-warning"><a href="{{route('family.view',$family)}}" class="text-center text-warning"> {{$family->name}}</a></h5>
 
 </div>
 

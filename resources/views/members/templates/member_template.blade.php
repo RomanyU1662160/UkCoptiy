@@ -7,7 +7,7 @@
 
     <div class="col border-bottom " >
         <div class="row">
-        <a href="#" class="btn btn-outline-info mr-2"> Edit Details </a>
+        <a href="{{route('member.update',$member)}}" class="btn btn-outline-info mr-2"> Edit Details </a>
         <a href="#" class="btn btn-outline-danger ml-2"> Remove </a>
     </div>
     </div>
